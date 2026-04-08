@@ -1,0 +1,137 @@
+---
+interface Link {
+  label: string;
+  href: string;
+}
+
+interface Props {
+  title: string;
+  body: string;
+  image?: string;
+  imageAlt?: string;
+  placeholderText?: string;
+  placeholderBg?: string; 
+  href?: string;           // Link principale (opzionale)
+  tags?: string[];
+  links?: Link[];          // Altri link (opzionali)
+  aspect?: 'video' | 'square' | 'wide' | 'tall';
+  position?: 'top' | 'center' | 'bottom';
+}
+
+const { 
+  title, 
+  body, 
+  image, 
+  imageAlt = "", 
+  placeholderText,
+  placeholderBg = "bg-zinc-900",
+  href, 
+  tags = [], 
+  links = [],
+  aspect = 'video',
+  position = 'center'
+} = Astro.props;
+
+// Uniamo l'eventuale href principale alla lista dei links per interarli insieme
+const allLinks: Link[] = [];
+if (href) allLinks.push({ label: "Leggi di più", href });
+if (links.length > 0) allLinks.push(...links);
+
+const aspectClasses = {
+  video: "aspect-video",
+  square: "aspect-square",
+  wide: "aspect-[21/9]",
+  tall: "aspect-[3/4]"
+};
+
+const positionClasses = {
+  top: "object-top",
+  center: "object-center",
+  bottom: "object-bottom"
+};
+
+const cardClass = "group flex flex-col bg-white rounded-[2rem] overflow-hidden border border-zinc-100 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-500 h-full w-full";
+---
+
+<div class={cardClass}>
+  
+  {/* TOP: IMMAGINE O PLACEHOLDER */}
+  <div class:list={["overflow-hidden relative", aspectClasses[aspect], placeholderBg]}>
+    {image ? (
+      <img
+        src={image}
+        alt={imageAlt}
+        class:list={[
+          "w-full h-full object-cover group-hover:scale-110 transition-transform duration-700",
+          positionClasses[position]
+        ]}
+      />
+    ) : (
+      <div class="w-full h-full flex items-center justify-center p-6 select-none">
+        <span class="text-white font-black uppercase tracking-tighter leading-[0.8] text-center text-4xl md:text-5xl lg:text-6xl opacity-90 group-hover:scale-105 transition-transform duration-500">
+          {placeholderText || title}
+        </span>
+      </div>
+    )}
+  </div>
+
+  {/* CONTENT */}
+  <div class="flex flex-col gap-3 p-8 flex-1">
+    <h3 class="text-2xl font-black text-zinc-900 leading-[1.1] tracking-tighter group-hover:text-[#ff6f00] transition-colors duration-300">
+      {href ? <a href={href}>{title}</a> : title}
+    </h3>
+
+    {tags.length > 0 && (
+      <div class="flex flex-wrap gap-2 mb-2">
+        {tags.map(tag => (
+          <span class="text-[10px] font-bold tracking-widest uppercase text-[#ff6f00] bg-orange-50 px-2 py-1 rounded-md">
+            {tag}
+          </span>
+        ))}
+      </div>
+    )}
+    
+    <p class="text-zinc-500 leading-relaxed text-sm flex-1">
+      {body}
+    </p>
+
+    {/* FOOTER: LINK UNIFORMATI */}
+    {allLinks.length > 0 && (
+      <div class="flex flex-wrap gap-x-6 gap-y-4 pt-6 mt-2 border-t border-zinc-100">
+        {allLinks.map((link) => (
+          <a 
+            href={link.href} 
+            class="inline-flex items-center gap-2 text-xs font-black uppercase tracking-widest text-zinc-900 hover:text-[#ff6f00] transition-colors group/link"
+          >
+            {link.label}
+            <svg 
+              class="w-4 h-4 transition-transform duration-300 group-hover/link:translate-x-1" 
+              fill="none" 
+              viewBox="0 0 24 24" 
+              stroke="currentColor" 
+              stroke-width="3"
+            >
+              <path d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+            </svg>
+          </a>
+        ))}
+      </div>
+    )}
+  </div>
+</div>
+
+<!--Card 
+    title="Workshop Fotografia"
+    body="Impara a scattare foto incredibili durante l'evento con i nostri professionisti."
+    placeholderText="Photo Class"
+    placeholderBg="bg-[#ff6f00]"
+    tags={["Education"]}
+    aspect="square"
+  />
+
+  <Card 
+    title="Assemblea Soci"
+    body="Riunione annuale per il bilancio e le nuove proposte per Gerusco 2026."
+    placeholderBg="bg-zinc-900"
+    tags={["Interno"]}
+  /-->

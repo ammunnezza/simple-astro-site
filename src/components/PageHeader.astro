@@ -1,0 +1,43 @@
+---
+interface Props {
+  title: string;
+  highlight?: string;
+  subtitle?: string;
+  centered?: boolean;
+}
+
+const { 
+  title, 
+  highlight, 
+  subtitle, 
+  centered = true 
+} = Astro.props;
+---
+
+<section class="bg-white py-10 px-6 border-zinc-100 relative overflow-hidden">
+  <div class:list={[
+    "max-w-5xl mx-auto relative z-10", 
+    { "text-center": centered, "text-left": !centered }
+  ]}>
+    
+    <h1 class="text-6xl md:text-8xl lg:text-9xl font-black uppercase tracking-tighter leading-[0.8] mb-8">
+      {title} 
+      {highlight && (
+        <>
+          <br class="hidden md:block" />
+          <span class="text-[#ff6f00]">{highlight}</span>
+        </>
+      )}
+    </h1>
+
+    {subtitle && (
+      <p class:list={[
+        "text-xl md:text-2xl text-zinc-500 max-w-2xl font-medium leading-relaxed",
+        { "mx-auto": centered }
+      ]}>
+        {subtitle}
+      </p>
+    )}
+  </div>
+
+</section>

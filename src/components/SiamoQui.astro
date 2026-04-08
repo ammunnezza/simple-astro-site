@@ -1,0 +1,17 @@
+---
+import { MapPin } from 'lucide-astro';
+
+export interface Props {
+  map_url: string;
+}
+
+const { map_url } = Astro.props;
+---              
+<a 
+    href={map_url}
+    target="_blank" 
+    class="flex items-center gap-2 text-1xl font-bold uppercase tracking-widest text-orange-400 hover:text-brand-primary transition-colors bg-black md:bg-transparent p-2 md:p-0 rounded-md"
+    >
+    <MapPin size={30} />
+    <span>SIAMO QUI!</span>
+</a>

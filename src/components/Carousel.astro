@@ -1,0 +1,88 @@
+---
+interface Props {
+  images: string[];
+  autoplay?: boolean;
+  interval?: number; // in millisecondi
+  class?: string;    // Per decidere le dimensioni (es. "max-w-2xl h-96")
+}
+
+const { 
+  images, 
+  autoplay = true, 
+  interval = 3000, 
+  class: className = "max-w-full h-[500px]" 
+} = Astro.props;
+
+// Generiamo un ID unico per evitare conflitti se ne usi più di uno nella stessa pagina
+const carouselId = `carousel-${Math.random().toString(36).substr(2, 9)}`;
+---
+
+<div class:list={["relative group", className]}>
+  <div class="relative w-full h-full rounded-[2.5rem] p-3 bg-white border border-zinc-200 shadow-2xl overflow-hidden">
+    
+    <div 
+      id={carouselId} 
+      class="carousel w-full h-full rounded-[1.8rem] overflow-x-auto scroll-smooth snap-x snap-mandatory"
+    >
+      {images.map((src, index) => (
+        <div 
+          id={`${carouselId}-item-${index}`} 
+          class="carousel-item relative w-full h-full snap-center"
+        >
+          <img 
+            src={src} 
+            class="w-full h-full object-cover" 
+            alt={`Slide ${index + 1}`} 
+          />
+        </div>
+      ))}
+    </div>
+
+    <div class="absolute bottom-8 left-1/2 -translate-x-1/2 flex gap-2 z-20">
+      {images.map((_, index) => (
+        <a 
+          href={`#${carouselId}-item-${index}`} 
+          class="w-3 h-3 rounded-full bg-white/50 hover:bg-white transition-all border border-black/10"
+        ></a>
+      ))}
+    </div>
+
+    <div class="absolute inset-0 flex items-center justify-between p-6 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none">
+      <button class="btn btn-circle btn-sm bg-white/80 border-none pointer-events-auto shadow-lg" onclick={`document.getElementById('${carouselId}').scrollBy({left: -innerWidth, behavior: 'smooth'})`}>❮</button>
+      <button class="btn btn-circle btn-sm bg-white/80 border-none pointer-events-auto shadow-lg" onclick={`document.getElementById('${carouselId}').scrollBy({left: innerWidth, behavior: 'smooth'})`}>❯</button>
+    </div>
+  </div>
+</div>
+
+<script define:vars={{ carouselId, autoplay, interval, totalItems: images.length }}>
+  if (autoplay) {
+    const carousel = document.getElementById(carouselId);
+    let currentIndex = 0;
+
+    const autoPlayInterval = setInterval(() => {
+      currentIndex++;
+      if (currentIndex >= totalItems) {
+        currentIndex = 0;
+        carousel.scrollTo({ left: 0, behavior: 'smooth' });
+      } else {
+        const itemWidth = carousel.offsetWidth;
+        carousel.scrollTo({ left: itemWidth * currentIndex, behavior: 'smooth' });
+      }
+    }, interval);
+
+    // Ferma l'autoplay se l'utente interagisce (opzionale)
+    carousel.addEventListener('touchstart', () => clearInterval(autoPlayInterval), { passive: true });
+    carousel.addEventListener('mousedown', () => clearInterval(autoPlayInterval));
+  }
+</script>
+
+<style>
+  /* Nascondiamo la scrollbar ma manteniamo lo scroll funzionale */
+  .carousel::-webkit-scrollbar {
+    display: none;
+  }
+  .carousel {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+</style>

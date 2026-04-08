@@ -1,0 +1,268 @@
+---
+/**
+ * AssociazioniCard.astro
+ *
+ * Props:
+ *  - title: string
+ *  - description: string
+ *  - image?: {
+ *      src: string
+ *      alt: string
+ *      layout?: 'left' | 'right' | 'top'   // default: 'left'
+ *    }
+ *  - socials?: {
+ *      website?: string
+ *      email?: string
+ *      instagram?: string
+ *      facebook?: string
+ *      twitter?: string
+ *      linkedin?: string
+ *      youtube?: string
+ *    }
+ *  - extraCard?: { image: string; imageAlt: string; text: string }
+ *
+ * Layout notes:
+ *  - 'top'   → immagine a piena larghezza sopra la card, nessun ingrandimento hover
+ *  - 'left'  → desktop: immagine floatata a sinistra, testo scorre attorno e sotto
+ *              mobile:  immagine sopra il testo a piena larghezza
+ *  - 'right' → desktop: immagine floatata a destra, testo scorre attorno e sotto
+ *              mobile:  immagine sopra il testo a piena larghezza
+ *
+ * Il titolo è sempre in cima, prima dell'immagine laterale.
+ * Le immagini left/right non vengono ritagliate: mostrano l'intera immagine (object-contain).
+ */
+
+import {
+    Globe,
+    Mail,
+    Instagram,
+    Facebook,
+    Twitter,
+    Linkedin,
+    Youtube,
+} from "lucide-astro";
+
+interface Props {
+    title: string;
+    description: string;
+    image?: {
+        src: string;
+        alt: string;
+        layout?: "left" | "right" | "top";
+    };
+    socials?: {
+        website?: string;
+        email?: string;
+        instagram?: string;
+        facebook?: string;
+        twitter?: string;
+        linkedin?: string;
+        youtube?: string;
+    };
+    extraCard?: {
+        image: string;
+        imageAlt: string;
+        text: string;
+    };
+}
+
+const { title, description, image, socials, extraCard } = Astro.props;
+
+const imageLayout = image?.layout ?? "left";
+const isTop = imageLayout === "top";
+const isLeft = imageLayout === "left";
+const isRight = imageLayout === "right";
+const isSide = isLeft || isRight;
+
+const socialBadge =
+    "inline-flex items-center gap-1.5 px-3 py-1.5 text-sm font-medium text-stone-600 bg-stone-100 hover:bg-amber-100 hover:text-amber-800 border border-transparent hover:border-amber-300 rounded-full transition-all duration-200 no-underline";
+---
+
+<article
+    class="group relative bg-white rounded-2xl border border-stone-200 shadow-sm overflow-hidden transition-shadow duration-300 hover:shadow-xl hover:shadow-stone-200/60"
+>
+    <!-- ── TOP: immagine piena larghezza, nessuno zoom ── -->
+    {
+        isTop && image && (
+            <div class="relative w-full overflow-hidden">
+                <img
+                    src={image.src}
+                    alt={image.alt}
+                    class="w-full h-auto block"
+                />
+                <div class="absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-white/60 to-transparent pointer-events-none" />
+            </div>
+        )
+    }
+
+    <!-- ── Corpo ── -->
+    <div class="p-6 sm:p-8">
+        <!-- Titolo: sempre in cima, prima di tutto -->
+        <h2
+            class="text-2xl sm:text-3xl text-center font-bold text-stone-900 tracking-tight leading-tight mb-4 transition-colors duration-200 group-hover:text-amber-700"
+        >
+            {title}
+        </h2>
+
+        <!--
+      SIDE (left / right):
+      - Mobile:   immagine a piena larghezza sopra il testo (block, niente float)
+      - Desktop:  float left/right, testo avvolge l'immagine e scorre anche sotto
+
+      L'immagine NON viene ritagliata: usa object-contain + sfondo neutro
+      così le immagini rettangolari vengono viste per intero.
+    -->
+        {
+            isSide && image && (
+                <>
+                    {/* Mobile: immagine sopra il testo */}
+                    <div class="block sm:hidden mb-4 rounded-xl overflow-hidden bg-stone-50">
+                        <img
+                            src={image.src}
+                            alt={image.alt}
+                            class="w-full h-auto block transition-transform duration-500 ease-out group-hover:scale-[1.02]"
+                        />
+                    </div>
+
+                    {/* Desktop: float */}
+                    <div
+                        class={[
+                            "hidden sm:block",
+                            "w-80 overflow-hidden rounded-xl bg-stone-50",
+                            isLeft
+                                ? "float-left mr-5 mb-3"
+                                : "float-right ml-5 mb-3",
+                        ].join(" ")}
+                    >
+                        <img
+                            src={image.src}
+                            alt={image.alt}
+                            class="w-full h-auto block transition-transform duration-500 ease-out group-hover:scale-[1.05]"
+                        />
+                    </div>
+                </>
+            )
+        }
+
+        <!-- clearfix wrapper: testo scorre attorno al float e poi sotto -->
+        <div class="after:content-[''] after:block after:clear-both">
+            <p class="text-stone-600 text-base leading-relaxed mb-6">
+                {description}
+            </p>
+
+            <!-- Social / contatti -->
+            {
+                socials && (
+                    <div class="flex flex-wrap gap-2">
+                        {socials.website && (
+                            <a
+                                href={socials.website}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                aria-label="Sito web"
+                                class={socialBadge}
+                            >
+                                <Globe size={16} class="shrink-0" />
+                                <span>Sito web</span>
+                            </a>
+                        )}
+
+                        {socials.email && (
+                            <a
+                                href={`mailto:${socials.email}`}
+                                aria-label="Email"
+                                class={socialBadge}
+                            >
+                                <Mail size={16} class="shrink-0" />
+                                <span>Email</span>
+                            </a>
+                        )}
+
+                        {socials.instagram && (
+                            <a
+                                href={socials.instagram}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                aria-label="Instagram"
+                                class={socialBadge}
+                            >
+                                <Instagram size={16} class="shrink-0" />
+                                <span>Instagram</span>
+                            </a>
+                        )}
+
+                        {socials.facebook && (
+                            <a
+                                href={socials.facebook}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                aria-label="Facebook"
+                                class={socialBadge}
+                            >
+                                <Facebook size={16} class="shrink-0" />
+                                <span>Facebook</span>
+                            </a>
+                        )}
+
+                        {socials.twitter && (
+                            <a
+                                href={socials.twitter}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                aria-label="X / Twitter"
+                                class={socialBadge}
+                            >
+                                <Twitter size={16} class="shrink-0" />
+                                <span>X</span>
+                            </a>
+                        )}
+
+                        {socials.linkedin && (
+                            <a
+                                href={socials.linkedin}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                aria-label="LinkedIn"
+                                class={socialBadge}
+                            >
+                                <Linkedin size={16} class="shrink-0" />
+                                <span>LinkedIn</span>
+                            </a>
+                        )}
+
+                        {socials.youtube && (
+                            <a
+                                href={socials.youtube}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                aria-label="YouTube"
+                                class={socialBadge}
+                            >
+                                <Youtube size={16} class="shrink-0" />
+                                <span>YouTube</span>
+                            </a>
+                        )}
+                    </div>
+                )
+            }
+
+            <!-- Extra Card opzionale -->
+            {
+                extraCard && (
+                    <div class="mt-6 flex gap-4 items-center bg-stone-50 border border-stone-200 rounded-xl p-4 transition-colors duration-200 group-hover:bg-amber-50 group-hover:border-amber-200">
+                        <img
+                            src={extraCard.image}
+                            alt={extraCard.imageAlt}
+                            class="w-40 h-40 object-cover rounded-lg shrink-0 border border-stone-200"
+                        />
+                        <p class="text-stone-600 text-sm leading-snug">
+                            {extraCard.text}
+                        </p>
+                    </div>
+                )
+            }
+        </div>
+        <!-- fine clearfix wrapper -->
+    </div>
+    <!-- fine corpo -->
+</article>

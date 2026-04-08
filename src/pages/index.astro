@@ -1,0 +1,196 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Card from "../components/Card.astro";
+import SaveTheDate from "../components/SaveTheDate.astro";
+import rocktoberfest from "../assets/rocktoberfest.jpg";
+import festadelgerusco from "../assets/festa-del-gerusco.jpg";
+import streetfood from "../assets/street-food.jpg";
+import curaebea from "../assets/cura-e-bea.jpg";
+import { Image } from "astro:assets";
+import gruppo from "../assets/gruppo_2018.jpg";
+import fontanella2 from "../assets/per-il-paese/fontanella2.jpg";
+import gerusco1 from "../assets/GERUSCO1.jpg";
+import StickerCta from "../components/StickerCta.astro";
+---
+
+<Layout title="Gerusco">
+  <main>
+    <StickerCta
+      text="Sponsorizza il Gerusco"
+      link="/sponsorizzazione"
+      color="bg-orange-600"
+      rotation="rotate-6"
+    />
+    <SaveTheDate />
+    <section class="max-w-7xl mx-auto px-6 py-12">
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <Card
+          title="Chi siamo"
+          body="Della musica ne abbiamo fatto la nostra voce!"
+          image={gerusco1.src}
+          tags={["associazione", "gruppo", "2001"]}
+          aspect="video"
+          href="/chi-siamo"
+        />
+
+        <Card
+          title="Gerusco Street Food Festival"
+          body="Truck con cibo da tutto il mondo"
+          image={streetfood.src}
+          tags={["Aprile", "Maggio", "trucks", "musica", "birra"]}
+          aspect="square"
+          href="/festa-del-gerusco"
+        />
+
+        <Card
+          title="Festa Del GERUSCO"
+          body="5 giorni di musica live e dj set. La festa, primogenita dell' Associazione Gerusco, con il passare del tempo è diventata un punto di riferimento per tutto il territorio dell'Ovest Milanese."
+          image={festadelgerusco.src}
+          aspect="video"
+          tags={["luglio", "Festival", "concerti", "cibo", "birra"]}
+          links={[{ label: "Leggi di più", href: "/festa-del-gerusco" }]}
+        />
+
+        <Card
+          title="L’impegno di Gerusco"
+          body="Crediamo che
+un’associazione attiva sul territorio abbia anche
+una responsabilità sociale. Parte delle nostre energie e delle
+risorse raccolte viene destinata a iniziative solidali
+e di utilità collettiva."
+          placeholderText="GERUSCO E IL SOCIALE"
+          placeholderBg="bg-green-900"
+          tags={["donazioni", "COLLABORAZIONI", "SUPPORTO"]}
+          aspect="video"
+          links={[
+            { label: "2023", href: "/chi-sosteniamo/2023" },
+            { label: "2024", href: "/chi-sosteniamo/2024" },
+            { label: "2025", href: "/chi-sosteniamo/2025" },
+          ]}
+        />
+
+        <Card
+          title="Cura & Bea"
+          body="Staffetta a tutta birra! Cerca altri tre amici e avventurati in questa competizione a squadre unica nel suo genere! "
+          image={curaebea.src}
+          href="/curaebea"
+          aspect="video"
+          tags={["Luglio", "Corsa", "staffetta", "birra"]}
+        />
+
+        <Card
+          title="RocktoberFest"
+          body="Festival in stile bavarese. Se siete appassionati del luppolo, affascinati dalle tradizioni bavaresi o entusiasti che hanno voglia di divertirsi non potete assolutamente perdervi il ROCKTOBERFEST"
+          image={rocktoberfest.src}
+          href="/rocktoberfest"
+          aspect="video"
+          tags={["Ottobre", "Pretzel", "stinchi", "litro"]}
+        />
+
+        <Card
+          title="Per il Paese"
+          body="Cosa facciamo nel nostro comune e nuovi progetti."
+          image={fontanella2.src}
+          aspect="video"
+          tags={["Robecco s/n", "territorio"]}
+          links={[
+            { label: "Leggi tutto", href: "/per-il-paese" },
+            {
+              label: "Progetto parco giochi",
+              href: "/per-il-paese#parco-giochi",
+            },
+          ]}
+        />
+
+        <Card
+          title="I nostri numeri"
+          body="4 eventi all'anno. Affluenza stimata 20MILA persone l'anno. 50 volontari nello staff operativo.
+      140 associati. 22 edizioni del festival. Collaborazioni con numerose associazioni locali"
+          aspect="video"
+          placeholderBg="bg-[#ff6f00]"
+          tags={["eventi", "festival", "volontari", "collaborazioni"]}
+        />
+
+        <Card
+          title="Perchè associarsi al Gerusco?"
+          placeholderText="Associati!"
+          body="Scegliere di sostenere Gerusco significa quindi andare oltre
+l’evento: vuol dire contribuire in modo concreto alla crescita della
+comunità, rafforzando il legame tra aziende cittadini e territorio."
+          placeholderBg="bg-zinc-900"
+          aspect="wide"
+          tags={["soci", "supportaci", "paperi"]}
+          links={[{ label: "Tutte le info", href: "/soci" }]}
+        />
+
+        <Card
+          title="Sponsorizza il gerusco"
+          body="Scegliere di sostenere Gerusco significa andare oltre l’evento: vuol dire contribuire concretamente alla crescita della comunità, rafforzando il legame tra aziende, cittadini e territorio."
+          placeholderText="Gerusco sponsor"
+          placeholderBg="bg-[#ff6f00]"
+          tags={["sponsor", "visibilità", "valori", "prestigio", "territorio"]}
+          links={[{ label: "Tutte le info", href: "/sponsorizzazione" }]}
+        />
+      </div>
+    </section>
+
+    <!--div class="flex flex-col md:flex-row gap-6">
+  <NostriNumeri/>
+</div-->
+
+    <!--section class="p-8 bg-gray-100">
+    <Parcheggi title="Dove parcheggiare"
+    lots={[
+      {
+        id: 1,
+        name: "Parcheggio",
+        coords: { lat: 45.43396590743872, lng: 8.882594774464401 },
+        notes: "Aperto 24h · Gratis",
+      },
+      {
+        id: 2,
+        name: "Parcheggio Mercato",
+        coords: { lat: 45.43644421513301, lng: 8.883654389406903 },
+        notes: "Aperto 24h · Gratis",
+      },
+      {
+        id: 3,
+        name: "Parcheggio",
+        //address: "Via Torino 45, Milano",
+        //available: false,   // greys it out
+        coords: { lat: 45.437714651252506, lng: 8.887314497597904 },
+        notes: "08:00 - 20:00 · Gratis",
+      },
+    ]}/>
+      
+  </section-->
+    <StickerCta
+      text="Dove Siamo"
+      link="/locations"
+      color="bg-orange-600"
+      rotation="rotate-6"
+    />
+    <div
+      class="max-w-6xl /* Larghezza massima della foto */
+    mx-auto /* Centra la foto orizzontalmente */
+    m-2 /* Margine inferiore per staccarla da ciò che segue */
+    
+    
+    bg-white /* Sfondo bianco, fa da cornice */
+    p-4 /* Padding interno, crea il bordo bianco attorno all'immagine */
+    rounded-lg /* Angoli leggermente arrotondati */
+    shadow-xl /* Ombra pronunciata per l'effetto staccato dal muro */
+    border border-gray-200 /* Un sottile bordo grigio per definire meglio la cornice */"
+    >
+      <Image
+        src={gruppo}
+        alt="Il Gruppo"
+        class="rounded /* Arrotonda anche gli angoli dell'immagine stessa */
+        w-full /* L'immagine occupa tutto lo spazio interno disponibile */
+        h-auto /* Mantiene le proporzioni */
+        object-cover /* Copre l'area senza deformarsi (utile se definisci un'altezza) */
+        aspect-[16/9] /* Opzionale: forza una proporzione (es. 16:9) */"
+      />
+    </div>
+  </main>
+</Layout>

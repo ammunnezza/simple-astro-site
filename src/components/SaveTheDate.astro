@@ -1,0 +1,202 @@
+---
+import { MapPin } from 'lucide-astro';
+import Social from '../components/Social.astro';
+import { ArrowRight } from 'lucide-astro'
+// Tipo bottone — href è un link esterno o interno, icon è il nome lucide opzionale
+export interface EventButton {
+  label: string;
+  href: string;
+  icon?: any; // componente lucide passato direttamente
+  external?: boolean;
+}
+
+export interface Evento {
+  dataVisual: string;
+  mese: string;
+  stato?: 'inCorso' | 'imminente' | null;  // ← aggiunto
+  titolo: string;
+  luogo: string;
+  mapsUrl: string;
+  descrizione: string;
+  buttons?: EventButton[];
+}
+
+interface Props {
+  titoloSezione?: string;
+}
+
+const { titoloSezione = "Prossimi Appuntamenti" } = Astro.props;
+
+// mesi di riferimento per ogni evento (0 = gennaio)
+const oggi = new Date();
+const meseCorrente = oggi.getMonth();
+const giornoCorrente = oggi.getDate();
+
+function getStatoEvento(meseInizio: number, giornoInizio: number, meseFine: number, giornoFine: number) {
+  const inizioMs = new Date(oggi.getFullYear(), meseInizio, giornoInizio).getTime();
+  const fineMs   = new Date(oggi.getFullYear(), meseFine, giornoFine, 23, 59).getTime();
+  const oggiMs   = oggi.getTime();
+  const diffGiorni = Math.ceil((inizioMs - oggiMs) / (1000 * 60 * 60 * 24));
+
+  if (oggiMs >= inizioMs && oggiMs <= fineMs) return 'inCorso';
+  if (diffGiorni > 0 && diffGiorni <= 29)     return 'imminente';
+  return null;
+}
+
+const eventi: Evento[] = [
+  { 
+    dataVisual: "30 Aprile, 1-2 Maggio", 
+    mese: "aprile - maggio", 
+    stato: getStatoEvento(3, 30, 4, 2), // aprile=3, maggio=4
+    titolo: "Gerusco Street Food Festival", 
+    luogo: "Parco Borgo Archinto - Robecco sul Naviglio (MI)",
+    mapsUrl: "https://maps.app.goo.gl/TEVwKDGWYW8Hw1Bw9",
+    descrizione: "Truck con cibo da tutto il mondo, musicisti che accompagnano e fanno ballare per tutta la sera",
+    buttons: [
+      { label: "Scopri l'evento", href: "/gsff" },
+    ]
+  },
+  { 
+    dataVisual: "dal 1 al 5 Luglio", 
+    mese: "luglio", 
+    stato: getStatoEvento(6, 1, 6, 5), // luglio=6
+    titolo: "Festa Del Gerusco", 
+    luogo: "Parco villa Terzaghi - Via San Giovanni 39 - Robecco sul Naviglio (MI)",
+    mapsUrl: "https://maps.app.goo.gl/vBPU6TVxbgMTPeTd7",
+    descrizione: "5 giorni di musica live e dj set, 3000 presenze giornaliere, stand food and beverage sempre attivi",
+    buttons: [
+      { label: "Scopri l'evento", href: "/festa-del-gerusco" },
+      { label: "Menu", href: "/menu", icon: ArrowRight },
+      { label: "Prenota Tavolo", href: "/prenotazione-tavolo", icon: ArrowRight },
+    ]
+  },
+  { 
+    dataVisual: "2 Luglio", 
+    mese: "luglio", 
+    stato: getStatoEvento(6, 5, 6, 5), // luglio=6
+    titolo: "Cura & Bea", 
+    luogo: "Parco villa Terzaghi - Via San Giovanni 39 - Robecco sul Naviglio (MI)",
+    mapsUrl: "https://maps.app.goo.gl/vBPU6TVxbgMTPeTd7",
+    descrizione: "CERCA ALTRI TRE AMICI E AVVENTURATI IN QUESTA COMPETIZIONE A SQUADRE UNICA NEL SUO GENERE!",
+    buttons: [
+      { label: "Scopri l'evento", href: "/curaebea" },
+      { label: "Iscriviti", href: "/curaebea/iscrizione", icon: ArrowRight },
+    ]
+  },
+  { 
+    dataVisual: "5 Settembre", 
+    mese: "settembre", 
+    stato: getStatoEvento(8, 5, 8, 5), // settembre=8
+    titolo: "Notte Bianca Robecco S/N", 
+    luogo: "Parco Borgo Archinto - Robecco sul Naviglio (MI)",
+    mapsUrl: "https://maps.app.goo.gl/TEVwKDGWYW8Hw1Bw9",
+    descrizione: "Per le vie del paese",
+  },
+  { 
+    dataVisual: "16-17 e 23-24 Ottobre", 
+    mese: "ottobre", 
+    stato: getStatoEvento(9, 16, 9, 24), // ottobre=9
+    titolo: "RocktoberFest", 
+    luogo: "Parco villa Terzaghi - Via San Giovanni 39 - Robecco sul Naviglio (MI)",
+    mapsUrl: "https://maps.app.goo.gl/vBPU6TVxbgMTPeTd7",
+    descrizione: "Se siete appassionati del luppolo, affascinati dalle tradizioni bavaresi o entusiasti che hanno voglia di divertirsi non potete assolutamente perdervi il ROCKTOBERFEST",
+    buttons: [
+      { label: "Scopri l'evento", href: "/rocktoberfest" }
+    ]
+  }
+];
+---
+
+<section class="py-20 bg-zinc-50 text-zinc-900 w-full">
+  <div class="max-w-full mx-auto px-6 md:px-12">
+    
+    <div class="mb-16">
+      <h2 class="text-xs uppercase tracking-[0.4em] font-bold mb-2" style="color: #ff6f00;">
+        Save the Date 2026
+      </h2>
+      <h3 class="text-5xl md:text-8xl font-black uppercase tracking-tighter leading-[0.9]">{titoloSezione}</h3>
+    </div>
+    
+    <div class="mb-12">
+      <Social size={40}/>
+    </div>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-8">
+      {eventi.map((evento) => (
+        /* CAMBIAMENTI CHIAVE:
+           - bg-white: le card restano bianche per contrastare con lo sfondo grigio
+           - border-zinc-200/60: bordo sottile per definire la forma
+           - shadow-md: ombra più marcata per dare profondità (effetto sollevato)
+        */
+        <div class="group flex flex-col bg-white rounded-3xl border border-zinc-200/60 shadow-md hover:shadow-2xl hover:-translate-y-2 transition-all duration-500 overflow-hidden h-full">
+          
+          <div class="p-8 pb-0">
+            <div class="flex justify-between items-start">
+              <div>
+                <div class="text-6xl font-black tracking-tighter leading-none group-hover:scale-110 transition-transform duration-500 origin-left">
+                  {evento.dataVisual}
+                </div>
+                <div class="text-sm font-bold tracking-[0.2em] uppercase mt-2" style="color: #ff6f00;">
+                  {evento.mese}
+                </div>
+              </div>
+              
+              {/* Badge Stato */}
+              <div class="flex flex-col items-end gap-2">
+                {evento.stato === 'inCorso' && (
+                  <span class="text-center inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-widest bg-green-500 text-white shadow-lg shadow-green-200 animate-pulse">
+                    IN CORSO!
+                  </span>
+                )}
+                {evento.stato === 'imminente' && (
+                  <span class="text-center animate-pulse inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-widest bg-[#ff6f00] text-white shadow-lg shadow-orange-200">
+                    Sta arrivando!
+                  </span>
+                )}
+              </div>
+            </div>
+          </div>
+
+          <div class="p-8 flex flex-col flex-grow">
+            <h4 class="text-2xl font-bold leading-tight mb-3 group-hover:text-[#ff6f00] transition-colors">
+              {evento.titolo}
+            </h4>
+            
+          
+            <p class="text-zinc-500 font-bold uppercase text-[10px] tracking-widest mb-3 flex items-center gap-1">
+                            <a 
+                href={evento.mapsUrl} 
+                target="_blank" 
+                class="flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-zinc-400 hover:text-brand-primary transition-colors bg-zinc-100 md:bg-transparent p-2 md:p-0 rounded-md"
+              >
+                <MapPin size={18} className="text-[#ff6f00]"/>
+                <span>{evento.luogo}</span>
+              </a>
+            </p>
+
+
+            <p class="text-zinc-500 leading-relaxed text-sm mb-8 flex-grow">
+              {evento.descrizione}
+            </p>
+
+            <div class="flex flex-col gap-3 mt-auto">
+              {evento.buttons && evento.buttons.map((btn, i) => (
+                <a href={btn.href}
+                  target={btn.external ? '_blank' : '_self'}
+                  class={`w-full justify-center inline-flex items-center gap-2 px-6 py-3 text-[11px] font-bold uppercase tracking-widest rounded-2xl border-2 transition-all duration-300
+                    ${i === 0
+                      ? 'border-[#ff6f00] bg-[#ff6f00] text-white hover:bg-zinc-900 hover:border-zinc-900'
+                      : 'border-zinc-100 bg-orange-50 text-zinc-600 hover:border-zinc-300 hover:bg-zinc-100'
+                    }`}
+                >
+                  {btn.icon && <btn.icon size={14} />}
+                  {btn.label}
+                </a>
+              ))}
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>

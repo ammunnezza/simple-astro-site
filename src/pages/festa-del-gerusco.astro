@@ -1,0 +1,42 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Splitsection from "../components/Splitsection.astro";
+import festadelgerusco from "../assets/festa-del-gerusco.jpg";
+import Social from "../components/Social.astro";
+import SiamoQui from "../components/SiamoQui.astro";
+import PageHeader from "../components/PageHeader.astro";
+---
+
+<Layout title="Festa Del Gerusco">
+  <PageHeader
+    title="Festa del"
+    highlight="Gerusco"
+    subtitle="5 giorni di musica live e dj set"
+  />
+  <Splitsection
+    image={festadelgerusco.src}
+    imageAlt="Description"
+    body="La Festa del Gerusco nasce nel 2001 per volere di un nutrito gruppo di giovani appassionati di musica che vogliono creare aggregazione a colpi di chitarre distorte e casse dritte"
+    reverse
+  >
+    <Social size={50} />
+    <p>
+      La festa, primogenita dell' Associazione Gerusco, con il passare del tempo
+      è diventata un punto di riferimento per tutto il territorio dell'Ovest
+      Milanese. Negli anni ha assunto infatti le sembianze di un evento estivo
+      dai contorni tipici di un festival d'oltreoceano: 5 giorni di musica live
+      e dj set, 3000 presenze giornaliere, stand food and beverage sempre
+      attivi, organizzazione al suo interno di eventi sportivi e artistici.
+    </p>
+    <p>
+      La Festa del Gerusco vanta attualmente un curriculum di tutto rispetto.
+      Sul suo palco si sono esibiti, tra gli altri, artisti dal respiro
+      internazionale come i canadesi The Mahones o gli italianissimi Omar
+      Pedrini, Linea 77, senza dimenticare Rumatera, Tre Allegri Ragazzi Morti e
+      Corveleno. La partecipazione sempre crescente di pubblico ha permesso a
+      questo evento, ormai ventennale, di diventare un trampolino di lancio per
+      band emergenti e nuove proposte.
+    </p>
+    <SiamoQui map_url="https://maps.app.goo.gl/vBPU6TVxbgMTPeTd7" />
+  </Splitsection>
+</Layout>

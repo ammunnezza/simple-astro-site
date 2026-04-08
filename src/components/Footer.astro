@@ -1,0 +1,151 @@
+---
+import {
+  Instagram,
+  Linkedin,
+  Twitter,
+  MapPin,
+  Mail,
+  Phone,
+  Copyright,
+} from "lucide-astro";
+import { Image } from "astro:assets";
+import logoImg from "../assets/logo.png";
+import Social from "../components/Social.astro";
+---
+
+<footer class="bg-[#1a1200] text-[#ffb74d]">
+  <!-- Orange top rule -->
+  <div
+    class="h-[3px] bg-gradient-to-r from-[#ff6f00] via-[#ffb74d] to-[#ff6f00]"
+  >
+  </div>
+
+  <div class="max-w-7xl mx-auto px-6 lg:px-12 pt-14 pb-8">
+    <!-- Main grid -->
+    <div
+      class="grid grid-cols-1 md:grid-cols-4 gap-10 pb-12 border-b border-[#ff6f00]/20"
+    >
+      <!-- ── Col 1: Logo + Info ── -->
+      <div class="md:col-span-2 space-y-6">
+        <!-- Logo only (no title) -->
+        <a
+          href="/"
+          aria-label="Home"
+          class="inline-block opacity-90 hover:opacity-100 transition-opacity duration-200"
+        >
+          <Image src={logoImg} alt="Gerusco" />
+        </a>
+
+        <!-- Short description -->
+        <p class="text-sm text-[#ffb74d]/70 leading-relaxed max-w-sm">
+          GEnte RUmori SCOperte
+        </p>
+
+        <!-- Contact -->
+        <ul class="space-y-3 text-sm text-[#ffb74d]/60">
+          <li class="text-[#ff6f00]">
+            <b>GERUSCO APS</b>
+          </li>
+          <li class="flex items-center gap-3">
+            20087 Robecco Sul Naviglio - MI
+          </li>
+          <li class="flex items-center gap-3">P.IVA: 07961130965</li>
+          <li class="flex items-center gap-3">CF: 90030520150</li>
+          <li class="flex items-center gap-3">SDI: KRRH6B9</li>
+          <li class="flex items-center gap-3">PEC: documenti@pec.gerusco.it</li>
+          <li class="flex items-center gap-3">
+            <Mail class="w-4 h-4 text-[#ff6f00] flex-shrink-0" />
+            <span>info@gerusco.it</span>
+          </li>
+        </ul>
+
+        <!-- Socials -->
+        <Social color="text-orange" />
+      </div>
+
+      <!-- ── Col 2: Discover ── -->
+      <div class="space-y-4">
+        <h4
+          class="text-xs font-medium tracking-[0.15em] uppercase text-[#ff6f00]"
+        >
+          Scopri
+        </h4>
+        <ul class="space-y-1">
+          {
+            [
+              { label: "Home", href: "/" },
+              { label: "Chi Siamo", href: "/chi-siamo" },
+              { label: "RocktoberFest", href: "/rocktoberfest" },
+              { label: "Festa Del Gerusco", href: "/festa-del-gerusco" },
+              { label: "Street Food Festival", href: "/gsff" },
+              { label: "Cura & Bea", href: "/curaebea" },
+            ].map(({ label, href }) => (
+              <li>
+                <a
+                  href={href}
+                  class="block py-1.5 text-sm text-[#ffb74d]/60 hover:text-[#ffb74d] hover:pl-2 transition-all duration-200 rounded"
+                >
+                  {label}
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+
+      <!-- ── Col 3: Connect ── -->
+      <div class="space-y-4">
+        <h4
+          class="text-xs font-medium tracking-[0.15em] uppercase text-[#ff6f00]"
+        >
+          Connect
+        </h4>
+        <ul class="space-y-1">
+          {
+            [
+              { label: "Contatti", href: "/contatti" },
+              { label: "Sponsorizzazione", href: "/sponsorizzazione" },
+              { label: "Dove Siamo", href: "/locations" },
+            ].map(({ label, href }) => (
+              <li>
+                <a
+                  href={href}
+                  class="block py-1.5 text-sm text-[#ffb74d]/60 hover:text-[#ffb74d] hover:pl-2 transition-all duration-200 rounded"
+                >
+                  {label}
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+    </div>
+
+    <!-- Bottom bar -->
+    <div
+      class="pt-6 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-[#ffb74d]/30"
+    >
+      <div class="flex gap-1">
+        <Copyright class="w-4 h-4 text-[#ff6f00] flex-shrink-0" />
+        {new Date().getFullYear()} Pizzi
+      </div>
+      <div class="flex gap-6">
+        <a
+          href="/privacy"
+          class="hover:text-[#ffb74d]/70 transition-colors duration-200"
+          >Privacy</a
+        >
+        <a
+          href="/terms"
+          class="hover:text-[#ffb74d]/70 transition-colors duration-200"
+          >Terms</a
+        >
+        <a
+          href="/cookies"
+          class="hover:text-[#ffb74d]/70 transition-colors duration-200"
+          >Cookies</a
+        >
+      </div>
+    </div>
+  </div>
+</footer>

@@ -1,0 +1,43 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import AssociazioneCard from "../../components/AssociazioneCard.astro";
+import logo_la_quercia from "../../assets/chi-sosteniamo/la_quercia.png";
+import scuola_2024 from "../../assets/chi-sosteniamo/scuola_2024.png";
+import PageHeader from "../../components/PageHeader.astro";
+---
+
+<Layout title="Chi sosteniamo 2024">
+    <main class="max-w-4xl mx-auto py-12 px-4 space-y-8">
+        <PageHeader title="2024" />
+
+        <AssociazioneCard
+            title="LA QUERCIA APS"
+            image={{
+                src: logo_la_quercia.src,
+                alt: "LA QUERCIA APS",
+                layout: "right",
+            }}
+            description="L’Associazione di Famiglie LA QUERCIA APS nata nel 1990 e 
+      costituita formalmente nel 1991 ha come scopo il sostegno alla disabilità. 
+      COSA LA CONTRADDISTINGUE ? La spontaneità dei rapporti e la centralità della persona 
+      disabile e della sua famiglia nelle attività educative, ricreative e di volontariato."
+            socials={{
+                website: "http://associazionelaquercia.it/",
+                instagram: "https://www.instagram.com/la.quercia/",
+                facebook:
+                    "https://www.facebook.com/laquerciaonlus/?locale=it_IT",
+            }}
+        />
+
+        <AssociazioneCard
+            title="Scuole del nostro Comune"
+            image={{
+                src: scuola_2024.src,
+                alt: "Scuole del nostro Comune",
+                layout: "left",
+            }}
+            description="Grazie al vostro supporto e alla vostra partecipazione anche quest'anno l'Associazione Gerusco ha potuto sostenere alcune realtà del territorio. In particolare, con il ricavato 2024, abbiamo voluto donare materiale didattico e sportivo alle scuole del nostro Comune: Scuola dell'infanzia Umberto I, Scuola Primaria Leonardo Da Vinci, Scuola Primaria Giuseppe Verdi, Scuola Secondaria di I Grado Don Milani.
+Speriamo in questo modo di mettere un mattoncino nel tessuto sociale della nostra comunità e di restituire la fiducia che ogni anno ci dimostrate."
+        />
+    </main>
+</Layout>

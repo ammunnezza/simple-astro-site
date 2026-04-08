@@ -1,0 +1,86 @@
+---
+import Layout from "../layouts/Layout.astro";
+import PageHeader from "../components/PageHeader.astro";
+---
+
+<Layout title="Cookies">
+    <PageHeader title="Cookies" />
+
+    <div class="p-8 max-w-2xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div
+            class="p-6 bg-white border border-slate-200 rounded-2xl shadow-sm hover:border-blue-300 transition-colors"
+        >
+            <h3 class="text-lg font-bold text-slate-900 mb-2 flex items-center">
+                <span class="mr-2">🍪</span> Cosa sono
+            </h3>
+            <p
+                class="text-sm text-slate-600 leading-relaxed text-pretty text-left"
+            >
+                Piccoli file di testo necessari per permettere al server di
+                riconoscere l'utente durante la procedura di iscrizione agli
+                eventi.
+            </p>
+        </div>
+
+        <div
+            class="p-6 bg-white border border-slate-200 rounded-2xl shadow-sm hover:border-blue-300 transition-colors"
+        >
+            <h3 class="text-lg font-bold text-slate-900 mb-2 flex items-center">
+                <span class="mr-2">🛡️</span> Perché li usiamo
+            </h3>
+            <p
+                class="text-sm text-slate-600 leading-relaxed text-pretty text-left"
+            >
+                Senza questi cookie, il sistema non sarebbe in grado di
+                processare la tua richiesta di iscrizione in modo sicuro sulla
+                nostra VPS.
+            </p>
+        </div>
+
+        <div
+            class="p-6 bg-slate-50 border border-slate-200 rounded-2xl md:col-span-2 flex flex-col md:flex-row md:items-center md:gap-6"
+        >
+            <div class="mb-4 md:mb-0 text-3xl">🚫</div>
+            <div>
+                <h3 class="text-lg font-bold text-slate-900 mb-1">
+                    Terze parti e Tracciamento
+                </h3>
+                <p class="text-sm text-slate-600 text-pretty text-left">
+                    <strong>Non utilizziamo</strong> cookie di profilazione, né script
+                    di tracciamento esterni come Google Analytics, Facebook Pixel
+                    o simili. La tua privacy è garantita dalla nostra gestione interna
+                    dei dati.
+                </p>
+            </div>
+        </div>
+
+        <div
+            class="p-6 bg-blue-50 border border-blue-100 rounded-2xl md:col-span-2"
+        >
+            <h3
+                class="text-lg font-bold text-blue-900 mb-2 flex items-center text-pretty text-left"
+            >
+                <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    class="h-5 w-5 mr-2"
+                    viewBox="0 0 20 20"
+                    fill="currentColor"
+                >
+                    <path
+                        fill-rule="evenodd"
+                        d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 2h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z"
+                        clip-rule="evenodd"></path>
+                </svg>
+                Informazioni sul Consenso
+            </h3>
+            <p
+                class="text-sm text-blue-800 leading-relaxed text-pretty text-left"
+            >
+                Trattandosi di cookie strettamente necessari al servizio
+                richiesto (iscrizione/prenotazione all'evento), non è richiesto
+                un consenso preventivo tramite banner invasivo, come previsto
+                dalle linee guida del Garante Privacy.
+            </p>
+        </div>
+    </div>
+</Layout>

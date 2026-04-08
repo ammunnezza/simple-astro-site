@@ -1,0 +1,121 @@
+---
+import Layout from "../layouts/Layout.astro";
+import PageHeader from "../components/PageHeader.astro";
+import Social from "../components/Social.astro";
+---
+
+<Layout title="Contatti - Gerusco">
+  <main class="bg-zinc-50 min-h-screen pb-20">
+    <PageHeader
+      title="Entra in"
+      highlight="Contatto"
+      subtitle="Hai domande sull'evento, vuoi diventare volontario o hai bisogno di info tecniche? Siamo qui per te."
+    />
+
+    <section class="max-w-7xl mx-auto px-6 py-16">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+        <div class="lg:col-span-7 space-y-6">
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div
+              class="bg-white p-8 rounded-[2rem] border border-zinc-200 shadow-sm hover:border-[#ff6f00] transition-all group"
+            >
+              <div
+                class="w-12 h-12 bg-orange-100 text-[#ff6f00] rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  ><rect width="20" height="16" x="2" y="4" rx="2"></rect><path
+                    d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path></svg
+                >
+              </div>
+              <h3
+                class="text-xs uppercase tracking-widest font-black text-zinc-400 mb-2"
+              >
+                Scrivici a
+              </h3>
+              <p class="text-xl font-bold break-all">info@gerusco.it</p>
+              <a
+                href="mailto:info@gerusco.it"
+                class="inline-block mt-4 text-[#ff6f00] font-black uppercase text-[10px] tracking-widest hover:underline"
+                >Invia Email ↗</a
+              >
+            </div>
+
+            <!--div class="bg-white p-8 rounded-[2rem] border border-zinc-200 shadow-sm hover:border-green-500 transition-all group">
+              <div class="w-12 h-12 bg-green-100 text-green-600 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+              </div>
+              <h3 class="text-xs uppercase tracking-widest font-black text-zinc-400 mb-2">Urgenze / WA</h3>
+              <p class="text-xl font-bold">+39 123 456 7890</p>
+              <a href="https://wa.me/391234567890" class="inline-block mt-4 text-green-600 font-black uppercase text-[10px] tracking-widest hover:underline">Chatta ora ↗</a>
+            </div-->
+          </div>
+
+          <div
+            class="bg-zinc-900 rounded-[2.5rem] p-10 text-white relative overflow-hidden"
+          >
+            <div class="relative z-10">
+              <h3
+                class="text-3xl md:text-5xl font-black uppercase tracking-tighter mb-6 italic"
+              >
+                Seguici per i <br />
+                <span class="text-[#ff6f00]">Live Update</span>
+              </h3>
+              <Social color="text-orange" size={50} />
+            </div>
+            <div
+              class="absolute -bottom-10 -right-10 text-zinc-800 font-black text-9xl select-none"
+            >
+              @
+            </div>
+          </div>
+        </div>
+
+        <!--div class="lg:col-span-5">
+          <div class="bg-white h-full rounded-[2.5rem] border border-zinc-200 shadow-sm p-10 flex flex-col">
+            <h3 class="text-2xl font-black uppercase tracking-tighter mb-8">Sede Organizzativa</h3>
+            
+            <div class="flex-grow space-y-8">
+              <div>
+                <p class="text-xs font-black uppercase tracking-[0.3em] text-[#ff6f00] mb-2">Indirizzo</p>
+                <p class="text-2xl font-bold leading-tight">Via Roma, 45<br/>20045 Gerusco (MI)</p>
+              </div>
+
+              <div>
+                <p class="text-xs font-black uppercase tracking-[0.3em] text-[#ff6f00] mb-2">Orari Segreteria</p>
+                <p class="text-lg font-medium text-zinc-500">Lun - Ven: 09:00 - 18:00<br/>Sab - Dom: Chiuso (Attivi sul campo)</p>
+              </div>
+
+              <div class="aspect-video bg-zinc-100 rounded-2xl overflow-hidden relative grayscale hover:grayscale-0 transition-all duration-700 border border-zinc-100">
+                <img 
+                  src="https://images.unsplash.com/photo-1526778548025-fa2f459cd5c1?auto=format&fit=crop&q=80&w=1000" 
+                  alt="Mappa Gerusco" 
+                  class="object-cover w-full h-full"
+                />
+                <div class="absolute inset-0 flex items-center justify-center">
+                  <Button href="https://maps.google.com" variant="primary">Apri Maps</Button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div-->
+      </div>
+    </section>
+
+    <section class="max-w-4xl mx-auto px-6 py-20 text-center">
+      <h2
+        class="text-4xl md:text-6xl font-black uppercase tracking-tighter text-zinc-400"
+      >
+        Ci vediamo al Gerusco!
+      </h2>
+    </section>
+  </main>
+</Layout>
