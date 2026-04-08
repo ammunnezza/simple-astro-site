@@ -13,29 +13,32 @@ import gerusco1 from "../assets/GERUSCO1.jpg";
 <Layout title="Gerusco">
   <main>
 
+    <h1 >Benvenuti a Gerusco!</h1>
+<div class="flex flex-col items-center gap-6 p-7 md:flex-row md:gap-8 rounded-2xl">
+  <div>
+    <img class="size-48 shadow-xl rounded-md" alt="" src={gruppo.src} />
+  </div>
+  <div class="flex items-center md:items-start">
+    <span class="text-2xl font-medium">Class Warfare</span>
+    <span class="font-medium text-sky-500">The Anti-Patterns</span>
+    <span class="flex gap-2 font-medium text-gray-600 dark:text-gray-400">
+      <span>No. 4</span>
+      <span>·</span>
+      <span>2025</span>
+    </span>
+  </div>
+</div>
 
+<span class="text-rotate text-7xl">
+  <span class="justify-items-center">
+    <span>DESIGN</span>
+    <span>DEVELOP</span>
+    <span>DEPLOY</span>
+    <span>SCALE</span>
+    <span>MAINTAIN</span>
+    <span>REPEAT</span>
+  </span>
+</span>
 
-    <div
-      class="max-w-6xl /* Larghezza massima della foto */
-    mx-auto /* Centra la foto orizzontalmente */
-    m-2 /* Margine inferiore per staccarla da ciò che segue */
-    
-    
-    bg-white /* Sfondo bianco, fa da cornice */
-    p-4 /* Padding interno, crea il bordo bianco attorno all'immagine */
-    rounded-lg /* Angoli leggermente arrotondati */
-    shadow-xl /* Ombra pronunciata per l'effetto staccato dal muro */
-    border border-gray-200 /* Un sottile bordo grigio per definire meglio la cornice */"
-    >
-      <Image
-        src={gruppo}
-        alt="Il Gruppo"
-        class="rounded /* Arrotonda anche gli angoli dell'immagine stessa */
-        w-full /* L'immagine occupa tutto lo spazio interno disponibile */
-        h-auto /* Mantiene le proporzioni */
-        object-cover /* Copre l'area senza deformarsi (utile se definisci un'altezza) */
-        aspect-[16/9] /* Opzionale: forza una proporzione (es. 16:9) */"
-      />
-    </div>
   </main>
 </Layout>
