@@ -1,6 +1,6 @@
 ---
 import { email } from 'astro:schema';
-import { Instagram, Mail, Github, Facebook, Youtube } from '@lucide/astro';
+import { Icon } from 'astro-icon/components';
 import Whatsapp from "./Whatsapp.astro";
 
 // Definiamo delle "Props" se vogliamo cambiare il colore o la dimensione al volo
@@ -13,10 +13,10 @@ const { color = "text-zinc-900", size = 24 } = Astro.props;
 
 // Array dei social per non ripetere nemmeno il tag <a>
 const socialLinks = [
-  { name: 'Instagram', url: 'https://www.instagram.com/gerusco_/', icon: Instagram },
-  { name: 'Facebook', url: 'https://it-it.facebook.com/gerusco', icon: Facebook },
-  { name: 'Email', url: 'mailto:info@gerusco.it', icon: Mail },
-  { name: 'Whatapp-channel', url: 'https://whatsapp.com/channel/0029VbAsAU3CcW4qpmTI0L2M', icon: Whatsapp },
+  { name: 'Instagram', url: 'https://www.instagram.com/gerusco_/', icon: 'line-md:instagram' },
+  { name: 'Facebook', url: 'https://it-it.facebook.com/gerusco', icon: 'line-md:facebook' },
+  { name: 'Email', url: 'mailto:info@gerusco.it', icon: 'line-md:email' },
+  //{ name: 'Whatapp-channel', url: 'https://whatsapp.com/channel/0029VbAsAU3CcW4qpmTI0L2M', icon:  Whatsapp },
 ];
 ---
 
@@ -29,7 +29,11 @@ const socialLinks = [
       class={`${color} hover:text-brand-primary transition-all duration-300 hover:-translate-y-1`}
       aria-label={social.name}
     >
-      <social.icon size={size} strokeWidth={1.5} />
+    <Icon 
+      name={social.icon} 
+      size={36}  
+      class="custom-class" 
+    />
     </a>
   ))}
 </div>

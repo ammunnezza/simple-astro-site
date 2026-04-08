@@ -1,16 +1,8 @@
 ---
-import {
-  Instagram,
-  Linkedin,
-  Twitter,
-  MapPin,
-  Mail,
-  Phone,
-  Copyright,
-} from '@lucide/astro';
 import { Image } from "astro:assets";
 import logoImg from "../assets/logo.png";
 import Social from "../components/Social.astro";
+import { Icon } from 'astro-icon/components';
 ---
 
 <footer class="bg-[#1a1200] text-[#ffb74d]">
@@ -54,7 +46,7 @@ import Social from "../components/Social.astro";
           <li class="flex items-center gap-3">SDI: KRRH6B9</li>
           <li class="flex items-center gap-3">PEC: documenti@pec.gerusco.it</li>
           <li class="flex items-center gap-3">
-            <Mail class="w-4 h-4 text-[#ff6f00] flex-shrink-0" />
+            <Icon name="lucide:mail" size={24} class="w-4 h-4 text-[#ff6f00] shrink-0" />
             <span>info@gerusco.it</span>
           </li>
         </ul>
@@ -126,7 +118,8 @@ import Social from "../components/Social.astro";
       class="pt-6 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-[#ffb74d]/30"
     >
       <div class="flex gap-1">
-        <Copyright class="w-4 h-4 text-[#ff6f00] flex-shrink-0" />
+            <Icon name="lucide:copyright" size={24} class="w-4 h-4 text-[#ff6f00] shrink-0" />
+
         {new Date().getFullYear()} Pizzi
       </div>
       <div class="flex gap-6">
